@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import Header from '@/components/Header';
 
 export const metadata: Metadata = {
-  title: 'TripEase Checklist',
+  title: 'Kneeboard',
   description: 'Your smart travel companion for packing perfectly.',
 };
 
