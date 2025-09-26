@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { cn } from '@/lib/utils';
+import Header from '@/components/Header';
 
 export const metadata: Metadata = {
   title: 'TripEase Checklist',
@@ -22,9 +23,16 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+          rel="stylesheet"
+        />
       </head>
-      <body className={cn('font-body antialiased', 'min-h-screen bg-background')}>
-        {children}
+      <body
+        className={cn('font-body antialiased', 'min-h-screen bg-background')}
+      >
+        <Header />
+        <main>{children}</main>
         <Toaster />
       </body>
     </html>
