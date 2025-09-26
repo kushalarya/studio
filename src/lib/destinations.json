@@ -1,0 +1,46 @@
+{
+  "destinations": [
+    {
+      "id": "paris",
+      "name": "Paris, France",
+      "description": "The City of Light, known for its art, fashion, and culture.",
+      "imageUrlId": "paris",
+      "visitCount": 19000000
+    },
+    {
+      "id": "dubai",
+      "name": "Dubai, UAE",
+      "description": "A city of superlatives, from ultramodern architecture to luxury shopping.",
+      "imageUrlId": "dubai",
+      "visitCount": 16000000
+    },
+    {
+      "id": "madrid",
+      "name": "Madrid, Spain",
+      "description": "A city of elegant boulevards and expansive, manicured parks.",
+      "imageUrlId": "madrid",
+      "visitCount": 10000000
+    },
+    {
+      "id": "tokyo",
+      "name": "Tokyo, Japan",
+      "description": "A dazzling mix of ultramodern and the traditional.",
+      "imageUrlId": "tokyo",
+      "visitCount": 9000000
+    },
+    {
+      "id": "amsterdam",
+      "name": "Amsterdam, Netherlands",
+      "description": "Golden Age canals, artistic heritage and elaborate canal houses.",
+      "imageUrlId": "amsterdam",
+      "visitCount": 8800000
+    },
+    {
+      "id": "new-york",
+      "name": "New York, USA",
+      "description": "The city that never sleeps, home to iconic landmarks.",
+      "imageUrlId": "new-york",
+      "visitCount": 13000000
+    }
+  ]
+}

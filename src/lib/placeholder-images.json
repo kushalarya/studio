@@ -5,6 +5,42 @@
       "description": "Scenic travel destination with mountains and a lake",
       "imageUrl": "https://images.unsplash.com/photo-1584467541268-b040f83be3fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0cmF2ZWwlMjBkZXN0aW5hdGlvbnxlbnwwfHx8fDE3NTg4MDczMTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "travel destination"
+    },
+    {
+      "id": "paris",
+      "description": "Eiffel Tower in Paris",
+      "imageUrl": "https://images.unsplash.com/photo-1502602898657-3e91760c0341?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxQYXJpc3xlbnwwfHx8fDE3MTc3OTg0MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Eiffel Tower"
+    },
+    {
+      "id": "dubai",
+      "description": "Dubai skyline with Burj Khalifa",
+      "imageUrl": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxEdWJhaXxlbnwwfHx8fDE3MTc3OTg0NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Dubai skyline"
+    },
+    {
+      "id": "madrid",
+      "description": "Metropolis Building in Madrid",
+      "imageUrl": "https://images.unsplash.com/photo-1578305698048-735a26005b6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxNYWRyaWR8ZW58MHx8fHwxNzE3Nzk4NDc4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Madrid building"
+    },
+    {
+      "id": "tokyo",
+      "description": "Shibuya Crossing in Tokyo",
+      "imageUrl": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxUb2t5b3xlbnwwfHx8fDE3MTc3OTg1MDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Tokyo crossing"
+    },
+    {
+      "id": "amsterdam",
+      "description": "Canals of Amsterdam",
+      "imageUrl": "https://images.unsplash.com/photo-1584024342719-3c48586c0c24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxBbXN0ZXJkYW18ZW58MHx8fHwxNzE3Nzk4NTIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "Amsterdam canals"
+    },
+    {
+      "id": "new-york",
+      "description": "Manhattan skyline with Empire State Building",
+      "imageUrl": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxOZXclMjBZb3JrJTJDbnxlbnwwfHx8fDE3MTc3OTg1NDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "NewYork skyline"
     }
   ]
 }
