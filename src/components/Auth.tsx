@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { LogOut, User as UserIcon } from 'lucide-react';
+import { LogIn, LogOut, User as UserIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export function Auth() {
@@ -56,8 +56,13 @@ export function Auth() {
   }
 
   return (
-    <Button onClick={signInWithGoogle}>
-      Login with Google
+    <Button variant="ghost" className="relative h-10 w-10 rounded-full" onClick={signInWithGoogle}>
+      <Avatar className="h-10 w-10">
+        <AvatarFallback>
+          <LogIn />
+        </AvatarFallback>
+      </Avatar>
+      <span className="sr-only">Login</span>
     </Button>
   );
 }
