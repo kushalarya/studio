@@ -6,6 +6,7 @@ export type Destination = {
   description: string;
   imageUrlId: string;
   visitCount: number;
+  tags: string[];
 };
 
 export const destinations: Destination[] = data.destinations;

@@ -11,20 +11,32 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 export function DestinationList() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedTag, setSelectedTag] = useState('All');
+
+  const allTags = [
+    'All',
+    ...Array.from(new Set(destinations.flatMap((d) => d.tags))),
+  ];
 
   const sortedDestinations = [...destinations].sort(
     (a, b) => b.visitCount - a.visitCount
   );
 
-  const filteredDestinations = sortedDestinations.filter(
-    (destination) =>
-      destination.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      destination.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredDestinations =
+    selectedTag === 'All'
+      ? sortedDestinations
+      : sortedDestinations.filter((destination) =>
+          destination.tags.includes(selectedTag)
+        );
 
   return (
     <div className="container mx-auto py-8">
@@ -35,12 +47,18 @@ export function DestinationList() {
             Explore some of the most visited places in the world.
           </CardDescription>
           <div className="pt-4">
-            <Input
-              placeholder="Search destinations..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="max-w-sm"
-            />
+            <Select onValueChange={setSelectedTag} defaultValue={selectedTag}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Filter by activity" />
+              </SelectTrigger>
+              <SelectContent>
+                {allTags.map((tag) => (
+                  <SelectItem key={tag} value={tag}>
+                    {tag}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </CardHeader>
         <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
