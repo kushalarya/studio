@@ -41,7 +41,7 @@ export default function ChecklistGenerator() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 container mx-auto py-8">
       <Card>
         <CardContent className="p-6">
           <h2 className="text-2xl font-bold font-headline mb-4">
