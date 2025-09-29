@@ -11,11 +11,16 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
+const TravelerSchema = z.object({
+  name: z.string().describe('The name of the traveler.'),
+  relationship: z.string().describe('The relationship of the traveler to the user (e.g., self, spouse, child).'),
+});
+
 const GenerateTravelChecklistInputSchema = z.object({
   destination: z.string().describe('The destination of the travel.'),
   purpose: z.string().describe('The purpose of the travel (e.g., business, vacation).'),
-  gender: z.enum(['male', 'female', 'other']).describe('The gender of the traveler.'),
   travelDates: z.string().describe('The dates of travel (e.g., 2024-01-01 to 2024-01-10).'),
+  travelers: z.array(TravelerSchema).describe('A list of travelers.'),
 });
 export type GenerateTravelChecklistInput = z.infer<
   typeof GenerateTravelChecklistInputSchema
@@ -42,10 +47,13 @@ const prompt = ai.definePrompt({
 
 Destination: {{{destination}}}
 Purpose: {{{purpose}}}
-Gender: {{{gender}}}
 Travel Dates: {{{travelDates}}}
+Travelers:
+{{#each travelers}}
+- Name: {{{this.name}}}, Relationship: {{{this.relationship}}}
+{{/each}}
 
-Generate a list of essential items for this trip.
+Generate a list of essential items for this trip, considering the different travelers.
 `,
 });
 

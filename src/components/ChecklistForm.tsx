@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
@@ -20,22 +20,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { DateRangePicker } from '@/components/ui/date-range-picker';
 import { addDays, format } from 'date-fns';
 import type { DateRange } from 'react-day-picker';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Plus, Trash2 } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+
+const travelerSchema = z.object({
+  name: z.string().min(1, { message: "Name can't be empty." }),
+  relationship: z.string().min(1, { message: "Relationship can't be empty." }),
+});
 
 const formSchema = z.object({
   destination: z
     .string()
     .min(2, { message: 'Destination must be at least 2 characters.' }),
   purpose: z.enum(['business', 'vacation', 'other']),
-  gender: z.enum(['male', 'female', 'other']),
   travelDates: z.object({
     from: z.date({ required_error: 'A start date is required.' }),
     to: z.date().optional(),
   }),
+  travelers: z.array(travelerSchema).min(1, 'Please add at least one traveler.'),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -51,12 +56,17 @@ export function ChecklistForm({ onSubmit, isLoading }: ChecklistFormProps) {
     defaultValues: {
       destination: '',
       purpose: 'vacation',
-      gender: 'other',
       travelDates: {
         from: new Date(),
         to: addDays(new Date(), 7),
       },
+      travelers: [{ name: '', relationship: '' }],
     },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: 'travelers',
   });
 
   function handleFormSubmit(values: FormValues) {
@@ -106,69 +116,89 @@ export function ChecklistForm({ onSubmit, isLoading }: ChecklistFormProps) {
             )}
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="purpose"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Purpose of Travel</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select the purpose of your trip" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="vacation">Vacation</SelectItem>
-                    <SelectItem value="business">Business</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="gender"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Gender</FormLabel>
+        <FormField
+          control={form.control}
+          name="purpose"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Purpose of Travel</FormLabel>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+              >
                 <FormControl>
-                  <RadioGroup
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    className="flex items-center space-x-4 pt-2"
-                  >
-                    <FormItem className="flex items-center space-x-2 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="male" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Male</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-2 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="female" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Female</FormLabel>
-                    </FormItem>
-                    <FormItem className="flex items-center space-x-2 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem value="other" />
-                      </FormControl>
-                      <FormLabel className="font-normal">Other</FormLabel>
-                    </FormItem>
-                  </RadioGroup>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select the purpose of your trip" />
+                  </SelectTrigger>
                 </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+                <SelectContent>
+                  <SelectItem value="vacation">Vacation</SelectItem>
+                  <SelectItem value="business">Business</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>Who is going?</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {fields.map((field, index) => (
+              <div key={field.id} className="flex items-end gap-4">
+                <FormField
+                  control={form.control}
+                  name={`travelers.${index}.name`}
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., Jane Doe" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`travelers.${index}.relationship`}
+                  render={({ field }) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Relationship</FormLabel>
+                      <FormControl>
+                        <Input placeholder="e.g., Spouse, Child" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  onClick={() => remove(index)}
+                  disabled={fields.length <= 1}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  <span className='sr-only'>Remove traveler</span>
+                </Button>
+              </div>
+            ))}
+             <FormMessage>{form.formState.errors.travelers?.message}</FormMessage>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => append({ name: '', relationship: '' })}
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Add Traveler
+            </Button>
+          </CardContent>
+        </Card>
+
         <Button
           type="submit"
           disabled={isLoading}

@@ -45,7 +45,7 @@ export default function ChecklistGenerator() {
       <Card>
         <CardContent className="p-6">
           <h2 className="text-2xl font-bold font-headline mb-4">
-            Plan Your Trip
+            Plan my trip
           </h2>
           <ChecklistForm onSubmit={handleFormSubmit} isLoading={isLoading} />
         </CardContent>
