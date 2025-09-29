@@ -6,14 +6,18 @@ import { ChecklistForm } from '@/components/ChecklistForm';
 import { ChecklistDisplay } from '@/components/ChecklistDisplay';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent } from '@/components/ui/card';
-import { Loader2 } from 'lucide-react';
+import { Loader2, X } from 'lucide-react';
+import { Button } from './ui/button';
 
 interface ChecklistGeneratorProps {
   onCancel: () => void;
   onSuccess: () => void;
 }
 
-export default function ChecklistGenerator({ onCancel, onSuccess }: ChecklistGeneratorProps) {
+export default function ChecklistGenerator({
+  onCancel,
+  onSuccess,
+}: ChecklistGeneratorProps) {
   const [checklist, setChecklist] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -47,13 +51,22 @@ export default function ChecklistGenerator({ onCancel, onSuccess }: ChecklistGen
   };
 
   return (
-    <div className="space-y-8 container mx-auto py-8">
-      <Card>
+    <div className="space-y-8">
+      <Card className="relative">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onCancel}
+          className="absolute top-4 right-4 h-8 w-8 z-10"
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </Button>
         <CardContent className="p-6">
           <h2 className="text-2xl font-bold font-headline mb-4">
             Plan my trip
           </h2>
-          <ChecklistForm onSubmit={handleFormSubmit} isLoading={isLoading} onCancel={onCancel} />
+          <ChecklistForm onSubmit={handleFormSubmit} isLoading={isLoading} />
         </CardContent>
       </Card>
 

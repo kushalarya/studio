@@ -48,10 +48,9 @@ type FormValues = z.infer<typeof formSchema>;
 interface ChecklistFormProps {
   onSubmit: (data: any) => void;
   isLoading: boolean;
-  onCancel: () => void;
 }
 
-export function ChecklistForm({ onSubmit, isLoading, onCancel }: ChecklistFormProps) {
+export function ChecklistForm({ onSubmit, isLoading }: ChecklistFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -201,14 +200,6 @@ export function ChecklistForm({ onSubmit, isLoading, onCancel }: ChecklistFormPr
         </Card>
         
         <div className="flex gap-2 justify-end">
-            <Button
-                type="button"
-                variant="ghost"
-                onClick={onCancel}
-                disabled={isLoading}
-            >
-                Cancel
-            </Button>
             <Button
                 type="submit"
                 disabled={isLoading}

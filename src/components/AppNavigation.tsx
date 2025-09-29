@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import Header from './Header';
 
-type Tab = 'explore' | 'my-checklist';
+type Tab = 'explore' | 'checklist';
 
 export default function AppNavigation() {
   const [activeTab, setActiveTab] = useState<Tab>('explore');
@@ -17,7 +17,7 @@ export default function AppNavigation() {
     switch (activeTab) {
       case 'explore':
         return <DestinationList />;
-      case 'my-checklist':
+      case 'checklist':
         return <MyChecklistPage />;
       default:
         return null;
@@ -34,9 +34,9 @@ export default function AppNavigation() {
             onClick={() => setActiveTab('explore')}
           />
           <TabButton
-            label="My checklist"
-            isActive={activeTab === 'my-checklist'}
-            onClick={() => setActiveTab('my-checklist')}
+            label="Checklist"
+            isActive={activeTab === 'checklist'}
+            onClick={() => setActiveTab('checklist')}
           />
         </div>
       </Header>
