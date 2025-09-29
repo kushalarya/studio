@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { destinations } from '@/lib/destinations';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
@@ -8,10 +11,19 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 export function DestinationList() {
+  const [searchTerm, setSearchTerm] = useState('');
+
   const sortedDestinations = [...destinations].sort(
     (a, b) => b.visitCount - a.visitCount
+  );
+
+  const filteredDestinations = sortedDestinations.filter(
+    (destination) =>
+      destination.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      destination.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -22,9 +34,17 @@ export function DestinationList() {
           <CardDescription>
             Explore some of the most visited places in the world.
           </CardDescription>
+          <div className="pt-4">
+            <Input
+              placeholder="Search destinations..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="max-w-sm"
+            />
+          </div>
         </CardHeader>
         <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedDestinations.map((destination) => {
+          {filteredDestinations.map((destination) => {
             const image = PlaceHolderImages.find(
               (p) => p.id === destination.id
             );
