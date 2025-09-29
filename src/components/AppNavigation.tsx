@@ -4,55 +4,46 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DestinationList } from '@/components/DestinationList';
 import { MyChecklistPage } from '@/components/MyChecklistPage';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import Header from './Header';
+import { Luggage } from 'lucide-react';
+import { Auth } from './Auth';
 
 type Tab = 'explore' | 'checklist';
 
 export default function AppNavigation() {
   const [activeTab, setActiveTab] = useState<Tab>('explore');
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'explore':
-        return <DestinationList />;
-      case 'checklist':
-        return <MyChecklistPage />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <>
-      <Header>
-        <div className="flex">
-          <TabButton
-            label="Explore"
-            isActive={activeTab === 'explore'}
-            onClick={() => setActiveTab('explore')}
-          />
-          <TabButton
-            label="Checklist"
-            isActive={activeTab === 'checklist'}
-            onClick={() => setActiveTab('checklist')}
-          />
+      <header className="bg-card border-b border-border shadow-sm sticky top-0 z-10">
+        <div className="container mx-auto flex items-center justify-between p-4">
+          <div className="flex items-center gap-3">
+            <Luggage className="h-8 w-8 text-primary" />
+            <h1 className="text-2xl font-bold text-foreground font-headline tracking-wider">
+              TripEase
+            </h1>
+          </div>
+          <Auth />
         </div>
-      </Header>
+        <div className="container mx-auto">
+          <div className="flex">
+            <TabButton
+              label="Explore"
+              isActive={activeTab === 'explore'}
+              onClick={() => setActiveTab('explore')}
+            />
+            <TabButton
+              label="My checklist"
+              isActive={active-tab === 'checklist'}
+              onClick={() => setActiveTab('checklist')}
+            />
+          </div>
+        </div>
+      </header>
       <div className="mt-4 flex-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.2 }}
-            className="h-full"
-          >
-            {renderContent()}
-          </motion.div>
-        </AnimatePresence>
+        {activeTab === 'explore' && <DestinationList />}
+        {activeTab === 'checklist' && <MyChecklistPage />}
       </div>
     </>
   );

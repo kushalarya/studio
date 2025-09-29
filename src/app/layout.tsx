@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { AuthProvider } from '@/hooks/use-auth';
 
 export const metadata: Metadata = {
-  title: 'Kneeboard',
+  title: 'TripEase Checklist',
   description: 'Your smart travel companion for packing perfectly.',
 };
 
