@@ -1,4 +1,5 @@
 import { Luggage } from 'lucide-react';
+import { Auth } from './Auth';
 
 export default function Header() {
   return (
@@ -10,6 +11,7 @@ export default function Header() {
             Kneeboard
           </h1>
         </div>
+        <Auth />
       </div>
     </header>
   );
