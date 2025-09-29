@@ -35,7 +35,7 @@ export default function AppNavigation() {
             />
             <TabButton
               label="My checklist"
-              isActive={active-tab === 'checklist'}
+              isActive={activeTab === 'checklist'}
               onClick={() => setActiveTab('checklist')}
             />
           </div>
