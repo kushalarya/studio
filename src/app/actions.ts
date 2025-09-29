@@ -6,7 +6,7 @@ import {
   type GenerateTravelChecklistOutput,
 } from '@/ai/flows/generate-travel-checklist';
 import { db } from '@/lib/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, limit, orderBy, query } from 'firebase/firestore';
 
 export async function getChecklist(
   data: GenerateTravelChecklistInput
@@ -29,5 +29,26 @@ export async function getChecklist(
     throw new Error(
       'Failed to generate checklist. The AI model may be temporarily unavailable.'
     );
+  }
+}
+
+export async function getPublicChecklists(): Promise<any[]> {
+  try {
+    const checklistsRef = collection(db, 'checklists');
+    const q = query(checklistsRef, orderBy('createdAt', 'desc'), limit(6));
+    const querySnapshot = await getDocs(q);
+    const checklists = querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        destination: data.destination,
+        purpose: data.purpose,
+        createdAt: data.createdAt.toDate().toLocaleDateString(),
+      };
+    });
+    return checklists;
+  } catch (error) {
+    console.error('Error fetching public checklists:', error);
+    return [];
   }
 }

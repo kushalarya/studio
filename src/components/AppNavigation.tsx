@@ -3,43 +3,44 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { DestinationList } from '@/components/DestinationList';
-import ChecklistGenerator from '@/components/ChecklistGenerator';
+import { MyChecklistPage } from '@/components/MyChecklistPage';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import Header from './Header';
 
-type Tab = 'home' | 'plan';
+type Tab = 'explore' | 'my-checklist';
 
 export default function AppNavigation() {
-  const [activeTab, setActiveTab] = useState<Tab>('home');
+  const [activeTab, setActiveTab] = useState<Tab>('explore');
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'home':
+      case 'explore':
         return <DestinationList />;
-      case 'plan':
-        return <ChecklistGenerator />;
+      case 'my-checklist':
+        return <MyChecklistPage />;
       default:
         return null;
     }
   };
 
   return (
-    <div>
-      <div className="border-b border-border">
-        <div className="container mx-auto flex">
+    <>
+      <Header>
+        <div className="flex">
           <TabButton
-            label="Home"
-            isActive={activeTab === 'home'}
-            onClick={() => setActiveTab('home')}
+            label="Explore"
+            isActive={activeTab === 'explore'}
+            onClick={() => setActiveTab('explore')}
           />
           <TabButton
-            label="Plan my trip"
-            isActive={activeTab === 'plan'}
-            onClick={() => setActiveTab('plan')}
+            label="My checklist"
+            isActive={activeTab === 'my-checklist'}
+            onClick={() => setActiveTab('my-checklist')}
           />
         </div>
-      </div>
-      <div className="mt-4">
+      </Header>
+      <div className="mt-4 flex-1">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -47,12 +48,13 @@ export default function AppNavigation() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.2 }}
+            className="h-full"
           >
             {renderContent()}
           </motion.div>
         </AnimatePresence>
       </div>
-    </div>
+    </>
   );
 }
 

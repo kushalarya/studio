@@ -8,7 +8,12 @@ import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
 
-export default function ChecklistGenerator() {
+interface ChecklistGeneratorProps {
+  onCancel: () => void;
+  onSuccess: () => void;
+}
+
+export default function ChecklistGenerator({ onCancel, onSuccess }: ChecklistGeneratorProps) {
   const [checklist, setChecklist] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -20,6 +25,7 @@ export default function ChecklistGenerator() {
       const result = await getChecklist(data);
       if (result.checklist && result.checklist.length > 0) {
         setChecklist(result.checklist);
+        onSuccess();
       } else {
         toast({
           variant: 'destructive',
@@ -47,7 +53,7 @@ export default function ChecklistGenerator() {
           <h2 className="text-2xl font-bold font-headline mb-4">
             Plan my trip
           </h2>
-          <ChecklistForm onSubmit={handleFormSubmit} isLoading={isLoading} />
+          <ChecklistForm onSubmit={handleFormSubmit} isLoading={isLoading} onCancel={onCancel} />
         </CardContent>
       </Card>
 
